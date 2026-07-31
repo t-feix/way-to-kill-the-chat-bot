@@ -1,0 +1,33 @@
+[Unit]
+Description=way to kill the chat bot
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+
+User=waytokillthechatbot
+Group=waytokillthechatbot
+
+WorkingDirectory=/opt/way-to-kill-the-chat-bot
+ExecStart=/opt/way-to-kill-the-chat-bot/.venv/bin/python /opt/way-to-kill-the-chat-bot/main.py
+
+Restart=always
+RestartSec=10
+
+StartLimitBurst=5
+StartLimitIntervalSec=60
+
+StandardOutput=journal
+StandardError=journal
+
+Environment=PYTHONUNBUFFERED=1
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/way-to-kill-the-chat-bot
+
+[Install]
+WantedBy=multi-user.target
